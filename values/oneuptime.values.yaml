@@ -1,0 +1,40 @@
+global:
+  host: status.example.internal
+  httpProtocol: https
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: internal-ca
+    nginx.ingress.kubernetes.io/proxy-body-size: "16m"
+  tls:
+    - secretName: oneuptime-tls
+      hosts: [status.example.internal]
+  hosts:
+    - host: status.example.internal
+      paths:
+        - path: /
+          pathType: Prefix
+
+postgres:
+  persistence:
+    enabled: true
+    size: 100Gi
+    storageClass: rook-ceph-block
+
+redis:
+  persistence:
+    enabled: true
+    size: 20Gi
+
+clickhouse:
+  persistence:
+    enabled: true
+    size: 200Gi
+    storageClass: rook-ceph-block
+
+encryptionSecret:
+  existingSecret: oneuptime-encryption
+smtp:
+  existingSecret: oneuptime-smtp

@@ -1,0 +1,11 @@
+repositories:
+  - name: oneuptime
+    url: https://helm-chart.oneuptime.com
+
+releases:
+  - name: oneuptime
+    namespace: oneuptime
+    chart: oneuptime/oneuptime
+    version: "7.x"
+    values:
+      - values/oneuptime.values.yaml
